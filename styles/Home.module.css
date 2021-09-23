@@ -1,0 +1,87 @@
+.section {
+    display: flex;
+    flex-direction: column;
+}
+
+.section > h2 {
+    margin: 10px 0px;
+}
+
+.cardContainer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.viewAll {
+    font-weight: bold;
+    align-self: flex-end;
+    text-decoration: underline;
+    margin-top: 10px;
+}
+
+.projectCard {
+    flex: 1 1 0;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    box-shadow: 2px 4px 5px rgba(0, 0, 0, 0.2);
+    max-width: 480px;
+    min-width: 300px;
+    min-height: 100px;
+    padding: 20px;
+    margin: 5px;
+}
+
+.projectCard:hover {
+    background-color: dodgerblue;
+}
+
+.projectCard:hover p {
+    color: white;
+}
+
+.projectBasic {
+    display: flex;
+    flex-direction: row;
+}
+
+.projectType {
+    color: grey;
+    margin-top: 0px;
+}
+
+.projectName {
+    margin-top: 0px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.projectDesc {
+    margin-top: 0px;
+}
+
+.blogCard {
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    box-shadow: 2px 4px 5px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    min-height: 200px;
+    padding: 20px;
+    margin: 5px;
+}
+
+.blogCard ul {
+    list-style-type: none;
+    margin: 0px;
+    padding: 0px;
+}
+
+.blogCard li span{
+    color: grey;
+}
+
+.blogCard li a{
+    font-weight: bold;
+    margin-left: 10px;
+}
