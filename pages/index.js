@@ -4,9 +4,14 @@ import styles from '../styles/Home.module.css'
 export default function Home() {
   return (
     <>
-      <Head>
+      <Head >
         <title>fHz</title>
         <meta name="description" content="fly through the waves" />
+        <meta property="og:title" content="fHz" />
+        <meta property="og:description" content="fly through the waves" />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://flyhaozi.com/" />
+        <meta property="og:image" content="https://avatars.githubusercontent.com/u/12277417?v=4" />
       </Head>
       <section className={styles.section}>
         <h2>Projects</h2>
