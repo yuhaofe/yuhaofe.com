@@ -11,7 +11,7 @@ export default function Home() {
         <meta property="og:description" content="fly through the waves" />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://flyhaozi.com/" />
-        <meta property="og:image" content="/banner.jpg" />
+        <meta property="og:image" content="https://flyhaozi.com/banner.jpg" />
         <meta name="twitter:card" content="summary_large_image" />
         <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
