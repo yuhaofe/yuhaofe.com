@@ -5,13 +5,17 @@ export default function Home() {
   return (
     <>
       <Head >
-        <title>fHz</title>
+        <title>fHz | fly through the waves</title>
         <meta name="description" content="fly through the waves" />
         <meta property="og:title" content="fHz" />
         <meta property="og:description" content="fly through the waves" />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://flyhaozi.com/" />
-        <meta property="og:image" content="https://avatars.githubusercontent.com/u/12277417?v=4" />
+        <meta property="og:image" content="/banner.jpg" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
       </Head>
       <section className={styles.section}>
         <h2>Projects</h2>
