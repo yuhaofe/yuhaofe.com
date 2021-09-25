@@ -11,10 +11,6 @@ a {
   text-decoration: none;
 }
 
-a:hover {
-  color:dodgerblue;
-}
-
 * {
   box-sizing: border-box;
 }

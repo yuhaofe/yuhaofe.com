@@ -1,7 +1,10 @@
+import cstyles from '../styles/Common.module.css'
+
 export default function Blog() {
     return (
-        <>
-            <h1>Under Construction</h1>
-        </>
+        <section className={cstyles.section}>
+            <h2>Blog</h2>
+            <h2>Under Construction</h2>
+        </section>
     )
 }
