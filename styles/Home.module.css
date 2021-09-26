@@ -19,18 +19,21 @@
 }
 
 .cardContainer {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
     margin-top: 24px;
 }
 
 .projectCard {
-    flex: 1 1 0;
     border: 1px dotted rgba(0, 0, 0, 0.2);
     min-width: 300px;
     min-height: 100px;
     padding: 20px;
     margin: 5px;
+}
+
+.projectCardHighlight {
+    box-shadow: 0px 2px 10px #0CC5C950;
 }
 
 .projectCard:hover {
