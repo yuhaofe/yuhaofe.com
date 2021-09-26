@@ -12,15 +12,6 @@ export default function Home({ projectInfos }) {
       <Head >
         <title>fHz | fly through the waves</title>
         <meta name="description" content="fly through the waves" />
-        <meta property="og:title" content="fHz" />
-        <meta property="og:description" content="fly through the waves" />
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://flyhaozi.com/" />
-        <meta property="og:image" content="https://flyhaozi.com/banner.jpg" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
       </Head>
       <div className={styles.top}>
         <svg viewBox="0 0 813 220" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -72,9 +63,11 @@ export default function Home({ projectInfos }) {
       <section className={cstyles.section}>
         <h2>Blog</h2>
         <ul className={cstyles.blogList}>
-          <li><span>2021-10-01</span><a href="/blog/2021-national-day">Celebrate The 2021 National Day!!! 🎉✨</a></li>
+          <li><span>2021-10-01</span><Link href="/blog/2021-national-day"><a >Celebrate The 2021 National Day!!! 🎉✨</a></Link></li>
         </ul>
-        <a href="/blog" className={styles.viewAll}>View all posts...</a>
+        <Link href="/blog">
+          <a className={styles.viewAll}>View all posts...</a>
+        </Link>
       </section>
     </>
   )

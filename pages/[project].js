@@ -15,17 +15,11 @@ export default function Project({ source, frontMatter }) {
     return (
         <>
             <Head >
-                <title>{frontMatter.title}</title>
+                <title>{frontMatter.title + " | fHz"}</title>
                 <meta name="description" content={frontMatter.description} />
-                <meta property="og:title" content={frontMatter.title} />
-                <meta property="og:description" content={frontMatter.description} />
-                <meta property="og:type" content="website" />
-                <meta property="og:url" content={"https://flyhaozi.com/" + frontMatter.path} />
-                <meta property="og:image" content="https://flyhaozi.com/banner.jpg" />
-                <meta name="twitter:card" content="summary_large_image" />
-                <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-                <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-                <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+                <meta property="og:title" content={frontMatter.title + " | fHz"} key="title" />
+                <meta property="og:description" content={frontMatter.description} key="description" />
+                <meta property="og:url" content={"https://flyhaozi.com/" + frontMatter.path} key="url" />
             </Head>
             <div className={cstyles.top}>
                 <h1>{frontMatter.title}</h1>

@@ -2,11 +2,17 @@ import { promises as fs } from 'fs'
 import matter from 'gray-matter'
 import path from 'path'
 import Link from 'next/link'
+import Head from 'next/head'
 import cstyles from '../styles/Common.module.css'
 
 export default function Projects({ projectInfos }) {
     return (
         <section className={cstyles.section}>
+            <Head >
+                <title>Projects | fHz</title>
+                <meta property="og:title" content="Projects | fHz" key="title" />
+                <meta property="og:url" content="https://flyhaozi.com/projects" key="url" />
+            </Head>
             <h2>Projects</h2>
             <div className={cstyles.cardContainer}>
             {
