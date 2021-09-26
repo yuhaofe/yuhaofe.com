@@ -47,7 +47,7 @@ export default function Home({ projectInfos }) {
       </div>
       <section className={cstyles.section}>
         <h2>Projects</h2>
-        <div className={styles.cardContainer}>
+        <div className={cstyles.cardContainer}>
         {
             projectInfos.map(info => {
                 return <Link href={'/' + info.path} key={info.path}>
@@ -71,7 +71,7 @@ export default function Home({ projectInfos }) {
       </section>
       <section className={cstyles.section}>
         <h2>Blog</h2>
-        <ul className={styles.blogList}>
+        <ul className={cstyles.blogList}>
           <li><span>2021-10-01</span><a href="/blog/2021-national-day">Celebrate The 2021 National Day!!! 🎉✨</a></li>
         </ul>
         <a href="/blog" className={styles.viewAll}>View all posts...</a>
