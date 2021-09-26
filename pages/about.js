@@ -1,8 +1,14 @@
+import Head from 'next/head'
 import cstyles from '../styles/Common.module.css'
 
 export default function About() {
     return (
         <>
+            <Head >
+                <title>About | fHz</title>
+                <meta property="og:title" content="About | fHz" key="title" />
+                <meta property="og:url" content="https://flyhaozi.com/about" key="url" />
+            </Head>
             <article className={cstyles.section}>
                 <h2>About Me</h2>
                 <p>Hi, I am <em>Yuhao Feng</em>. fHz is the name I use to publish my works.</p>

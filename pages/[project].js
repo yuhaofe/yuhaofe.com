@@ -15,33 +15,27 @@ export default function Project({ source, frontMatter }) {
     return (
         <>
             <Head >
-                <title>{frontMatter.title}</title>
+                <title>{frontMatter.title + " | fHz"}</title>
                 <meta name="description" content={frontMatter.description} />
-                <meta property="og:title" content={frontMatter.title} />
-                <meta property="og:description" content={frontMatter.description} />
-                <meta property="og:type" content="website" />
-                <meta property="og:url" content={"https://flyhaozi.com/" + frontMatter.path} />
-                <meta property="og:image" content="https://flyhaozi.com/banner.jpg" />
-                <meta name="twitter:card" content="summary_large_image" />
-                <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-                <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-                <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+                <meta property="og:title" content={frontMatter.title + " | fHz"} key="title" />
+                <meta property="og:description" content={frontMatter.description} key="description" />
+                <meta property="og:url" content={"https://flyhaozi.com/" + frontMatter.path} key="url" />
             </Head>
             <div className={cstyles.top}>
                 <h1>{frontMatter.title}</h1>
                 <p>{frontMatter.description}</p>
                 <div>
                     {frontMatter.links.map((link, index) => {
-                        return <a href={link} target="_blank" key={index}>{
-                            link.startsWith("https://chrome.google.com") &&
+                        return <a href={link} target="_blank" key={index}>
+                        { link.startsWith("https://chrome.google.com") &&
                             <img src="/icons/chrome-web-store.svg" alt="Install from Chrome Web Store" />
-                        } {link.startsWith("https://microsoftedge.microsoft.com") &&
+                        } { link.startsWith("https://microsoftedge.microsoft.com") &&
                             <img src="/icons/microsoft-store.svg" alt="Get it from Microsoft" />
-                            } {link.startsWith("https://greasyfork.org") &&
-                                <img src="/icons/greasyfork.svg" alt="Install from Greasy Fork" />
-                            } {link.startsWith("https://github.com") &&
-                                <img src="/icons/github-white.svg" alt="View on Github" />
-                            }
+                        } { (link.startsWith("https://greasyfork.org") || link.startsWith("https://sleazyfork.org")) &&
+                            <img src="/icons/greasyfork.svg" alt="Install from Greasy Fork" />
+                        } { link.startsWith("https://github.com") &&
+                            <img src="/icons/github-white.svg" alt="View on Github" />
+                        }
                         </a>
                     })}
                 </div>

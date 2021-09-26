@@ -63,3 +63,66 @@
 .top > div > a img {
     height: 60px;
 }
+
+.cardContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-top: 24px;
+}
+
+.projectCard {
+    flex: 1 1 40%;
+    border: 1px dotted rgba(0, 0, 0, 0.2);
+    min-width: 300px;
+    min-height: 100px;
+    padding: 20px;
+    margin: 5px;
+}
+
+.projectCardHighlight {
+    box-shadow: 0px 2px 10px #0CC5C950;
+}
+
+.projectCard:hover {
+    background: linear-gradient(to left, #1560BD, #0CC5C9);
+    border: 1px solid white;
+}
+
+.projectCard:hover p {
+    color: white;
+}
+
+.projectBasic {
+    display: flex;
+    flex-direction: row;
+}
+
+.projectType {
+    color: grey;
+    margin-top: 0px;
+}
+
+.projectName {
+    margin-top: 0px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.projectDesc {
+    margin-top: 0px;
+}
+
+.blogList {
+    list-style-type: none;
+    padding: 0px;
+}
+
+.blogList li span{
+    color: grey;
+}
+
+.blogList li a{
+    font-weight: bold;
+    margin-left: 10px;
+}
