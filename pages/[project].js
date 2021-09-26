@@ -32,16 +32,16 @@ export default function Project({ source, frontMatter }) {
                 <p>{frontMatter.description}</p>
                 <div>
                     {frontMatter.links.map((link, index) => {
-                        return <a href={link} target="_blank" key={index}>{
-                            link.startsWith("https://chrome.google.com") &&
+                        return <a href={link} target="_blank" key={index}>
+                        { link.startsWith("https://chrome.google.com") &&
                             <img src="/icons/chrome-web-store.svg" alt="Install from Chrome Web Store" />
-                        } {link.startsWith("https://microsoftedge.microsoft.com") &&
+                        } { link.startsWith("https://microsoftedge.microsoft.com") &&
                             <img src="/icons/microsoft-store.svg" alt="Get it from Microsoft" />
-                            } {link.startsWith("https://greasyfork.org") &&
-                                <img src="/icons/greasyfork.svg" alt="Install from Greasy Fork" />
-                            } {link.startsWith("https://github.com") &&
-                                <img src="/icons/github-white.svg" alt="View on Github" />
-                            }
+                        } { (link.startsWith("https://greasyfork.org") || link.startsWith("https://sleazyfork.org")) &&
+                            <img src="/icons/greasyfork.svg" alt="Install from Greasy Fork" />
+                        } { link.startsWith("https://github.com") &&
+                            <img src="/icons/github-white.svg" alt="View on Github" />
+                        }
                         </a>
                     })}
                 </div>
