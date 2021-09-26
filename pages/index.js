@@ -46,7 +46,7 @@ export default function Home() {
         <h2>Projects</h2>
         <div className={styles.cardContainer}>
           <Link href="/quick-bookmarks-menu">
-            <a className={styles.projectCard}>
+            <a className={styles.projectCard +　' ' + styles.projectCardHighlight}>
               <div className={styles.projectBasic}>
                 <div>
                   <p className={styles.projectType}>Browser Extension</p>
@@ -66,6 +66,28 @@ export default function Home() {
                 </div>
               </div>
               <p className={styles.projectDesc}>Force highest quality playback for Twitter videos.</p>
+            </a>
+          </Link>
+          <Link href="/blank-new-tab-page">
+            <a className={styles.projectCard}>
+              <div className={styles.projectBasic}>
+                <div>
+                  <p className={styles.projectType}>Browser Extension</p>
+                  <p className={styles.projectName}>Blank New Tab Page - White Smoke</p>
+                </div>
+              </div>
+              <p className={styles.projectDesc}>A chrome extension replaces the default new tab page to a white smoke background blank page, which also supports dark mode.</p>
+            </a>
+          </Link>
+          <Link href="/idle-detection-bypasser">
+            <a className={styles.projectCard}>
+              <div className={styles.projectBasic}>
+                <div>
+                  <p className={styles.projectType}>Userscript</p>
+                  <p className={styles.projectName}>Idle Detection Bypasser</p>
+                </div>
+              </div>
+              <p className={styles.projectDesc}>Give a fake active response to the caller of the Idle Detection API.</p>
             </a>
           </Link>
         </div>
