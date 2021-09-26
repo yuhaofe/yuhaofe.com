@@ -6,6 +6,9 @@ import Head from 'next/head'
 import { useRouter } from 'next/router'
 import path from 'path'
 import cstyles from '../styles/Common.module.css'
+import IdleDetectionExample from '../components/idle-detection-example'
+
+const components = { IdleDetectionExample };
 
 export default function Project({ source, frontMatter }) {
     const router = useRouter();
@@ -44,7 +47,7 @@ export default function Project({ source, frontMatter }) {
                 </p>
             </div>
             <section className={cstyles.section}>
-                <MDXRemote {...source} />
+                <MDXRemote {...source} components={ components } />
             </section>
         </>
     )
