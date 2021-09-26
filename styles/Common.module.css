@@ -112,3 +112,17 @@
 .projectDesc {
     margin-top: 0px;
 }
+
+.blogList {
+    list-style-type: none;
+    padding: 0px;
+}
+
+.blogList li span{
+    color: grey;
+}
+
+.blogList li a{
+    font-weight: bold;
+    margin-left: 10px;
+}
