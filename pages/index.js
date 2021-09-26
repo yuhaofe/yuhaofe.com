@@ -2,22 +2,16 @@ import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 import cstyles from '../styles/Common.module.css'
 import Link from 'next/link'
+import { promises as fs } from 'fs'
+import matter from 'gray-matter'
+import path from 'path'
 
-export default function Home() {
+export default function Home({ projectInfos }) {
   return (
     <>
       <Head >
         <title>fHz | fly through the waves</title>
         <meta name="description" content="fly through the waves" />
-        <meta property="og:title" content="fHz" />
-        <meta property="og:description" content="fly through the waves" />
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://flyhaozi.com/" />
-        <meta property="og:image" content="https://flyhaozi.com/banner.jpg" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
       </Head>
       <div className={styles.top}>
         <svg viewBox="0 0 813 220" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -44,62 +38,61 @@ export default function Home() {
       </div>
       <section className={cstyles.section}>
         <h2>Projects</h2>
-        <div className={styles.cardContainer}>
-          <Link href="/quick-bookmarks-menu">
-            <a className={styles.projectCard +　' ' + styles.projectCardHighlight}>
-              <div className={styles.projectBasic}>
-                <div>
-                  <p className={styles.projectType}>Browser Extension</p>
-                  <p className={styles.projectName}>Quick Bookmarks Menu</p>
-                </div>
-                <img className={styles.projectImg}></img>
-              </div>
-              <p className={styles.projectDesc}>A chrome extension gives you quick access to your bookmarks.</p>
-            </a>
-          </Link>
-          <Link href="/twitter-video-fixer">
-            <a className={styles.projectCard}>
-              <div className={styles.projectBasic}>
-                <div>
-                  <p className={styles.projectType}>Userscript</p>
-                  <p className={styles.projectName}>Video Quality Fixer for Twitter</p>
-                </div>
-              </div>
-              <p className={styles.projectDesc}>Force highest quality playback for Twitter videos.</p>
-            </a>
-          </Link>
-          <Link href="/blank-new-tab-page">
-            <a className={styles.projectCard}>
-              <div className={styles.projectBasic}>
-                <div>
-                  <p className={styles.projectType}>Browser Extension</p>
-                  <p className={styles.projectName}>Blank New Tab Page - White Smoke</p>
-                </div>
-              </div>
-              <p className={styles.projectDesc}>A chrome extension replaces the default new tab page to a white smoke background blank page, which also supports dark mode.</p>
-            </a>
-          </Link>
-          <Link href="/idle-detection-bypasser">
-            <a className={styles.projectCard}>
-              <div className={styles.projectBasic}>
-                <div>
-                  <p className={styles.projectType}>Userscript</p>
-                  <p className={styles.projectName}>Idle Detection Bypasser</p>
-                </div>
-              </div>
-              <p className={styles.projectDesc}>Give a fake active response to the caller of the Idle Detection API.</p>
-            </a>
-          </Link>
+        <div className={cstyles.cardContainer}>
+        {
+            projectInfos.map(info => {
+                return <Link href={'/' + info.path} key={info.path}>
+                    <a className={cstyles.projectCard}>
+                        <div className={cstyles.projectBasic}>
+                            <div>
+                                <p className={cstyles.projectType}>{info.type}</p>
+                                <p className={cstyles.projectName}>{info.title}</p>
+                            </div>
+                            <img className={cstyles.projectImg}></img>
+                        </div>
+                        <p className={cstyles.projectDesc}>{info.description}</p>
+                    </a>
+                </Link>
+            })
+        }
         </div>
-        <a href="/projects" className={styles.viewAll}>View all projects...</a>
+        <Link href="/projects">
+          <a  className={styles.viewAll}>View all projects...</a>
+        </Link>
       </section>
       <section className={cstyles.section}>
         <h2>Blog</h2>
-        <ul className={styles.blogList}>
-          <li><span>2021-10-01</span><a href="/blog/2021-national-day">Celebrate The 2021 National Day!!! 🎉✨</a></li>
+        <ul className={cstyles.blogList}>
+          <li><span>2021-10-01</span><Link href="/blog/2021-national-day"><a >Celebrate The 2021 National Day!!! 🎉✨</a></Link></li>
         </ul>
-        <a href="/blog" className={styles.viewAll}>View all posts...</a>
+        <Link href="/blog">
+          <a className={styles.viewAll}>View all posts...</a>
+        </Link>
       </section>
     </>
   )
+}
+
+export async function getStaticProps(context) {
+  const projectsDir = path.join(process.cwd(), 'projects');
+  const projectNames = await fs.readdir(projectsDir);
+  let projectInfos = await Promise.all(projectNames.map(async name => {
+      const projPath = path.join(projectsDir, name);
+      const projSource = await fs.readFile(projPath, 'utf8');
+      const { data } = matter(projSource);
+      return data;
+  }));
+
+  if (!projectInfos) {
+      return {
+          notFound: true,
+      }
+  }
+
+  projectInfos.sort((p1, p2) => p1.order.localeCompare(p2.order));
+  projectInfos = projectInfos.slice(0, 4);
+
+  return {
+      props: { projectInfos }
+  }
 }
