@@ -5,15 +5,26 @@ import Link from 'next/link'
 import Head from 'next/head'
 import cstyles from '../styles/Common.module.css'
 
-export default function Projects({ projectInfos }) {
+const i18n = {
+    en: {
+        title: 'Projects - fHz',
+        projects: 'Projects'
+    },
+    'zh-CN': {
+        title: '项目 - fHz',
+        projects: '项目'
+    }
+}
+
+export default function Projects({ projectInfos, locale }) {
     return (
         <section className={cstyles.section}>
             <Head >
-                <title>Projects | fHz</title>
-                <meta property="og:title" content="Projects | fHz" key="title" />
+                <title>{i18n[locale].title}</title>
+                <meta property="og:title" content={i18n[locale].title} key="title" />
                 <meta property="og:url" content="https://flyhaozi.com/projects" key="url" />
             </Head>
-            <h2>Projects</h2>
+            <h2>{i18n[locale].projects}</h2>
             <div className={cstyles.cardContainer}>
             {
                 projectInfos.map(info => {
@@ -37,7 +48,8 @@ export default function Projects({ projectInfos }) {
 }
 
 export async function getStaticProps(context) {
-    const projectsDir = path.join(process.cwd(), 'projects');
+    const locale = process.env.NEXT_LOCALE ?? 'en';
+    const projectsDir = path.join(process.cwd(), 'projects', locale);
     const projectNames = await fs.readdir(projectsDir);
     const projectInfos = await Promise.all(projectNames.map(async name => {
         const projPath = path.join(projectsDir, name);
@@ -55,6 +67,6 @@ export async function getStaticProps(context) {
     projectInfos.sort((p1, p2) => p1.order.localeCompare(p2.order));
 
     return {
-        props: { projectInfos }
+        props: { projectInfos, locale }
     }
 }
