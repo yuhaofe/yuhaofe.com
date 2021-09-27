@@ -10,14 +10,14 @@ import IdleDetectionExample from '../components/idle-detection-example'
 
 const components = { IdleDetectionExample };
 
-export default function Project({ source, frontMatter }) {
+export default function Project({ source, frontMatter, locale }) {
     const router = useRouter();
     return (
         <>
             <Head >
-                <title>{frontMatter.title + " | fHz"}</title>
+                <title>{frontMatter.title + " - fHz"}</title>
                 <meta name="description" content={frontMatter.description} />
-                <meta property="og:title" content={frontMatter.title + " | fHz"} key="title" />
+                <meta property="og:title" content={frontMatter.title + " - fHz"} key="title" />
                 <meta property="og:description" content={frontMatter.description} key="description" />
                 <meta property="og:url" content={"https://flyhaozi.com/" + frontMatter.path} key="url" />
             </Head>
@@ -48,7 +48,8 @@ export default function Project({ source, frontMatter }) {
 }
 
 export async function getStaticPaths() {
-    const projectsDir = path.join(process.cwd(), 'projects');
+    const locale = process.env.NEXT_LOCALE ?? 'en';
+    const projectsDir = path.join(process.cwd(), 'projects', locale);
     const projectNames = await fs.readdir(projectsDir);
     const paths = projectNames.map(name => {
         return { params: { project: path.parse(name).name } };
@@ -60,8 +61,9 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
+    const locale = process.env.NEXT_LOCALE ?? 'en';
     const { project } = params;
-    const projectsDir = path.join(process.cwd(), 'projects');
+    const projectsDir = path.join(process.cwd(), 'projects', locale);
     const projectNames = await fs.readdir(projectsDir);
     const projName = projectNames.find(name => path.parse(name).name === project);
     if (!projName) {
@@ -71,5 +73,5 @@ export async function getStaticProps({ params }) {
     const projSource = await fs.readFile(projPath, 'utf8');
     const { content, data } = matter(projSource);
     const mdxSource = await serialize(content, { scope: data });
-    return { props: { source: mdxSource, frontMatter: data } };
+    return { props: { source: mdxSource, frontMatter: data, locale } };
 }

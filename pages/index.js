@@ -6,13 +6,24 @@ import { promises as fs } from 'fs'
 import matter from 'gray-matter'
 import path from 'path'
 
-export default function Home({ projectInfos }) {
+const hp = {
+  en: {
+    projects: 'Projects',
+    viewAllProjects: '>> View all projects',
+    blog: 'Blog',
+    viewAllPosts: '>> View all posts'
+  },
+  'zh-CN': {
+    projects: '项目',
+    viewAllProjects: '>> 查看全部项目',
+    blog: '博客',
+    viewAllPosts: '>> 查看全部博文'
+  }
+}
+
+export default function Home({ projectInfos, locale }) {
   return (
     <>
-      <Head >
-        <title>fHz | fly through the waves</title>
-        <meta name="description" content="fly through the waves" />
-      </Head>
       <div className={styles.top}>
         <svg viewBox="0 0 813 220" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M813 99.3747L800.66 124.987L744.614 124.987L695.253 212.578L680.341 124.987L559.509 124.987L554.367 66.5908L521.46 124.987L444.333 124.987L459.758 99.3747L507.577 99.3748L569.279 -1.06349e-05L578.02 99.3747L695.253 99.3748L705.536 155.208L735.873 99.3748L813 99.3747Z" fill="white" />
@@ -37,7 +48,7 @@ export default function Home({ projectInfos }) {
         </svg>
       </div>
       <section className={cstyles.section}>
-        <h2>Projects</h2>
+        <h2>{hp[locale].projects}</h2>
         <div className={cstyles.cardContainer}>
         {
             projectInfos.map(info => {
@@ -57,16 +68,16 @@ export default function Home({ projectInfos }) {
         }
         </div>
         <Link href="/projects">
-          <a  className={styles.viewAll}>View all projects...</a>
+          <a  className={styles.viewAll}>{hp[locale].viewAllProjects}</a>
         </Link>
       </section>
       <section className={cstyles.section}>
-        <h2>Blog</h2>
+        <h2>{hp[locale].blog}</h2>
         <ul className={cstyles.blogList}>
           <li><span>2021-10-01</span><Link href="/blog/2021-national-day"><a >Celebrate The 2021 National Day!!! 🎉✨</a></Link></li>
         </ul>
         <Link href="/blog">
-          <a className={styles.viewAll}>View all posts...</a>
+          <a className={styles.viewAll}>{hp[locale].viewAllPosts}</a>
         </Link>
       </section>
     </>
@@ -74,7 +85,8 @@ export default function Home({ projectInfos }) {
 }
 
 export async function getStaticProps(context) {
-  const projectsDir = path.join(process.cwd(), 'projects');
+  const locale = process.env.NEXT_LOCALE ?? 'en';
+  const projectsDir = path.join(process.cwd(), 'projects', locale);
   const projectNames = await fs.readdir(projectsDir);
   let projectInfos = await Promise.all(projectNames.map(async name => {
       const projPath = path.join(projectsDir, name);
@@ -93,6 +105,6 @@ export async function getStaticProps(context) {
   projectInfos = projectInfos.slice(0, 4);
 
   return {
-      props: { projectInfos }
+      props: { projectInfos, locale }
   }
 }
