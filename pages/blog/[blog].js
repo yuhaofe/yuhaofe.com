@@ -1,3 +1,4 @@
+import Head from 'next/head'
 import { getAllPosts, getPostBySlug } from '../../lib/api'
 import cstyles from '../../styles/Common.module.css'
 import styles from '../../styles/Blog.module.css'
