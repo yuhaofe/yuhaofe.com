@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { promises as fs } from 'fs'
 import matter from 'gray-matter'
 import path from 'path'
+import { getAllPosts } from '../lib/api'
 
 const hp = {
   en: {
@@ -21,7 +22,7 @@ const hp = {
   }
 }
 
-export default function Home({ projectInfos, locale }) {
+export default function Home({ projectInfos, posts, locale }) {
   return (
     <>
       <div className={styles.top}>
@@ -74,7 +75,11 @@ export default function Home({ projectInfos, locale }) {
       <section className={cstyles.section}>
         <h2>{hp[locale].blog}</h2>
         <ul className={cstyles.blogList}>
-          <li><span>2021-10-01</span><Link href="/blog/2021-national-day"><a >Celebrate The 2021 National Day!!! 🎉✨</a></Link></li>
+        {
+            posts.map(entry => 
+                <li><span>{entry.date}</span><Link href={`/blog/${entry.slug}`}><a >{entry.title}</a></Link></li>
+            )
+        }
         </ul>
         <Link href="/blog">
           <a className={styles.viewAll}>{hp[locale].viewAllPosts}</a>
@@ -104,7 +109,8 @@ export async function getStaticProps(context) {
   projectInfos.sort((p1, p2) => p1.order.localeCompare(p2.order));
   projectInfos = projectInfos.slice(0, 4);
 
+  const posts = await getAllPosts();
   return {
-      props: { projectInfos, locale }
+      props: { projectInfos, posts, locale }
   }
 }
