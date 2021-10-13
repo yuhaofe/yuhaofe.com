@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import Link from 'next/link'
+import { getAllPosts } from '../lib/api'
 import cstyles from '../styles/Common.module.css'
 
 const i18n = {
@@ -13,7 +14,7 @@ const i18n = {
     }
 }
 
-export default function Blog({ locale }) {
+export default function Blog({ posts, locale }) {
     return (
         <section className={cstyles.section}>
             <Head >
@@ -23,12 +24,17 @@ export default function Blog({ locale }) {
             </Head>
             <h2>{i18n[locale].blog}</h2>
             <ul className={cstyles.blogList}>
-                <li><span>2021-10-01</span><Link href="/blog/2021-national-day"><a >Celebrate The 2021 National Day!!! 🎉✨</a></Link></li>
+                {
+                    posts.map(entry => 
+                        <li><span>{entry.date}</span><Link href={`/blog/${entry.slug}`}><a >{entry.title}</a></Link></li>
+                    )
+                }
             </ul>
         </section>
     )
 }
 
 export async function getStaticProps() {
-    return { props: { locale: process.env.NEXT_LOCALE ?? 'en' } };
+    const posts = await getAllPosts();
+    return { props: { posts, locale: process.env.NEXT_LOCALE ?? 'en' } };
 }
