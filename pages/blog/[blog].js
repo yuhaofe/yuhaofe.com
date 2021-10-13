@@ -97,13 +97,22 @@ export default function Blog({ post }) {
     }, []);
 
     return (
-        <article className={styles.post + ' ' + cstyles.section}>
-            <h1>{post.title}</h1>
-            <p><time dateTime={`${post.date} 00:00`}>{post.date}</time> by fHz</p>
-            <section>
-                {content}
-            </section>
-        </article>
+        <>
+            <Head >
+                <title>{post.title + " - fHz"}</title>
+                <meta name="description" content={post.title} />
+                <meta property="og:title" content={post.title  + " - fHz"} key="title" />
+                <meta property="og:description" content={post.title} key="description" />
+                <meta property="og:url" content={"https://flyhaozi.com/" + post.slug} key="url" />
+            </Head>
+            <article className={styles.post + ' ' + cstyles.section}>
+                <h1>{post.title}</h1>
+                <p><time dateTime={`${post.date} 00:00`}>{post.date}</time> by fHz</p>
+                <section>
+                    {content}
+                </section>
+            </article>
+        </>
     )
 }
 
