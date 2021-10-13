@@ -118,6 +118,10 @@
     padding: 0px;
 }
 
+.blogList li {
+    margin: 10px 0px;
+}
+
 .blogList li span{
     color: grey;
 }
