@@ -3,28 +3,18 @@ import matter from 'gray-matter'
 import path from 'path'
 import Link from 'next/link'
 import Head from 'next/head'
+import { getLocalizedTexts } from '../lib/i18n'
 import cstyles from '../styles/Common.module.css'
 
-const i18n = {
-    en: {
-        title: 'Projects - fHz',
-        projects: 'Projects'
-    },
-    'zh-CN': {
-        title: '项目 - fHz',
-        projects: '项目'
-    }
-}
-
-export default function Projects({ projectInfos, locale }) {
+export default function Projects({ projectInfos, texts }) {
     return (
         <section className={cstyles.section}>
             <Head >
-                <title>{i18n[locale].title}</title>
-                <meta property="og:title" content={i18n[locale].title} key="title" />
+                <title>{`${texts.projects} - fHz`}</title>
+                <meta property="og:title" content={`${texts.projects} - fHz`} key="title" />
                 <meta property="og:url" content="https://flyhaozi.com/projects" key="url" />
             </Head>
-            <h2>{i18n[locale].projects}</h2>
+            <h2>{texts.projects}</h2>
             <div className={cstyles.cardContainer}>
             {
                 projectInfos.map(info => {
@@ -66,7 +56,8 @@ export async function getStaticProps(context) {
 
     projectInfos.sort((p1, p2) => p1.order.localeCompare(p2.order));
 
+    const texts = getLocalizedTexts('projects');
     return {
-        props: { projectInfos, locale }
+        props: { projectInfos, texts }
     }
 }

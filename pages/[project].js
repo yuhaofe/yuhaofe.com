@@ -5,12 +5,13 @@ import { serialize } from 'next-mdx-remote/serialize'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import path from 'path'
-import cstyles from '../styles/Common.module.css'
 import IdleDetectionExample from '../components/idle-detection-example'
+import { getLocalizedTexts } from '../lib/i18n'
+import cstyles from '../styles/Common.module.css'
 
 const components = { IdleDetectionExample };
 
-export default function Project({ source, frontMatter, locale }) {
+export default function Project({ source, frontMatter, texts }) {
     const router = useRouter();
     return (
         <>
@@ -73,5 +74,6 @@ export async function getStaticProps({ params }) {
     const projSource = await fs.readFile(projPath, 'utf8');
     const { content, data } = matter(projSource);
     const mdxSource = await serialize(content, { scope: data });
-    return { props: { source: mdxSource, frontMatter: data, locale } };
+    const texts = getLocalizedTexts();
+    return { props: { source: mdxSource, frontMatter: data, texts } };
 }
