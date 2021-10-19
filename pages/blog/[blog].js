@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import { getAllPosts, getPostBySlug } from '../../lib/api'
+import { getLocalizedTexts } from '../../lib/i18n'
 import cstyles from '../../styles/Common.module.css'
 import styles from '../../styles/Blog.module.css'
 
@@ -29,7 +30,7 @@ const renderText = textArr => textArr.reduce((acc, cur) => {
     return [...acc, jsx];
 }, []);
 
-export default function Blog({ post }) {
+export default function Blog({ post, texts }) {
 
     const content = post.content.reduce((acc, cur) => {
         let jsx = null;
@@ -101,9 +102,9 @@ export default function Blog({ post }) {
         <>
             <Head >
                 <title>{post.title + " - fHz"}</title>
-                <meta name="description" content={post.title} />
+                <meta name="description" content={post.summary} />
                 <meta property="og:title" content={post.title  + " - fHz"} key="title" />
-                <meta property="og:description" content={post.title} key="description" />
+                <meta property="og:description" content={post.summary} key="description" />
                 <meta property="og:url" content={"https://flyhaozi.com/" + post.slug} key="url" />
             </Head>
             <article className={styles.post + ' ' + cstyles.section}>
@@ -132,10 +133,6 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
     const post = await getPostBySlug(params.blog);
-
-    return {
-        props: {
-            post
-        }
-    };
+    const texts = getLocalizedTexts();
+    return { props: { post, texts } };
 }

@@ -1,32 +1,29 @@
 import Head from 'next/head'
 import Link from 'next/link'
 import { getAllPosts } from '../lib/api'
+import { getLocalizedTexts } from '../lib/i18n'
 import cstyles from '../styles/Common.module.css'
 
-const i18n = {
-    en: {
-        title: 'Blog - fHz',
-        blog: 'Blog (Under Construction)',
-    },
-    'zh-CN': {
-        title: '博客 - fHz',
-        blog: '博客（正在施工）'
-    }
-}
-
-export default function Blog({ posts, locale }) {
+export default function Blog({ posts, texts }) {
     return (
         <section className={cstyles.section}>
             <Head >
-                <title>{i18n[locale].title}</title>
-                <meta property="og:title" content={i18n[locale].title} key="title" />
+                <title>{`${texts.blog} - fHz`}</title>
+                <meta property="og:title" content={`${texts.blog} - fHz`} key="title" />
                 <meta property="og:url" content="https://flyhaozi.com/blog" key="url" />
             </Head>
-            <h2>{i18n[locale].blog}</h2>
+            <h2>{texts.blog}</h2>
             <ul className={cstyles.blogList}>
                 {
                     posts.map(entry => 
-                        <li><span>{entry.date}</span><Link href={`/blog/${entry.slug}`}><a >{entry.title}</a></Link></li>
+                        <li>
+                            <span>{entry.date}</span>
+                            <div>
+                                <Link href={`/blog/${entry.slug}`}><a >{entry.title}</a></Link>
+                                <p>{entry.summary}</p>
+                                <Link href={`/blog/${entry.slug}`}><a>{texts.viewMore}</a></Link>
+                            </div>
+                        </li>
                     )
                 }
             </ul>
@@ -36,5 +33,6 @@ export default function Blog({ posts, locale }) {
 
 export async function getStaticProps() {
     const posts = await getAllPosts();
-    return { props: { posts, locale: process.env.NEXT_LOCALE ?? 'en' } };
+    const texts = getLocalizedTexts('blog', 'viewMore');
+    return { props: { posts, texts } };
 }

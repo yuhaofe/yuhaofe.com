@@ -6,23 +6,9 @@ import { promises as fs } from 'fs'
 import matter from 'gray-matter'
 import path from 'path'
 import { getAllPosts } from '../lib/api'
+import { getLocalizedTexts } from '../lib/i18n'
 
-const hp = {
-  en: {
-    projects: 'Projects',
-    viewAllProjects: '>> View all projects',
-    blog: 'Blog',
-    viewAllPosts: '>> View all posts'
-  },
-  'zh-CN': {
-    projects: '项目',
-    viewAllProjects: '>> 查看全部项目',
-    blog: '博客',
-    viewAllPosts: '>> 查看全部博文'
-  }
-}
-
-export default function Home({ projectInfos, posts, locale }) {
+export default function Home({ projectInfos, posts, texts }) {
   return (
     <>
       <div className={styles.top}>
@@ -49,7 +35,7 @@ export default function Home({ projectInfos, posts, locale }) {
         </svg>
       </div>
       <section className={cstyles.section}>
-        <h2>{hp[locale].projects}</h2>
+        <h2>{texts.projects}</h2>
         <div className={cstyles.cardContainer}>
         {
             projectInfos.map(info => {
@@ -69,20 +55,27 @@ export default function Home({ projectInfos, posts, locale }) {
         }
         </div>
         <Link href="/projects">
-          <a  className={styles.viewAll}>{hp[locale].viewAllProjects}</a>
+          <a  className={styles.viewAll}>{texts.viewAllProjects}</a>
         </Link>
       </section>
       <section className={cstyles.section}>
-        <h2>{hp[locale].blog}</h2>
+        <h2>{texts.blog}</h2>
         <ul className={cstyles.blogList}>
         {
             posts.map(entry => 
-                <li><span>{entry.date}</span><Link href={`/blog/${entry.slug}`}><a >{entry.title}</a></Link></li>
+                <li>
+                  <span>{entry.date}</span>
+                  <div>
+                    <Link href={`/blog/${entry.slug}`}><a >{entry.title}</a></Link>
+                    <p>{entry.summary}</p>
+                    <Link href={`/blog/${entry.slug}`}><a>{texts.viewMore}</a></Link>
+                  </div>
+                </li>
             )
         }
         </ul>
         <Link href="/blog">
-          <a className={styles.viewAll}>{hp[locale].viewAllPosts}</a>
+          <a className={styles.viewAll}>{texts.viewAllPosts}</a>
         </Link>
       </section>
     </>
@@ -110,7 +103,8 @@ export async function getStaticProps(context) {
   projectInfos = projectInfos.slice(0, 4);
 
   const posts = await getAllPosts();
+  const texts = getLocalizedTexts('projects', 'viewAllProjects', 'blog', 'viewAllPosts', 'viewMore');
   return {
-      props: { projectInfos, posts, locale }
+      props: { projectInfos, posts, texts }
   }
 }
