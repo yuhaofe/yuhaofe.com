@@ -31,7 +31,7 @@ const renderText = textArr => textArr.reduce((acc, cur) => {
 }, []);
 
 export default function Blog({ post, texts }) {
-
+    const toc = [];
     const content = post.content.reduce((acc, cur) => {
         let jsx = null;
         let lastType = null;
@@ -47,9 +47,15 @@ export default function Blog({ post, texts }) {
                 break;
             case "heading_2":
                 jsx = (<a href={`#${cur.heading_2.text[0].plain_text}`}><h2 id={cur.heading_2.text[0].plain_text}>{renderText(cur.heading_2.text)}</h2></a>);
+                const tocH2 = { text: cur.heading_2.text[0].plain_text, children: [] };
+                toc.push(tocH2);
                 break;
             case "heading_3":
                 jsx = (<a href={`#${cur.heading_3.text[0].plain_text}`}><h3 id={cur.heading_3.text[0].plain_text}>{renderText(cur.heading_3.text)}</h3></a>);
+                const tocH3 = { text: cur.heading_3.text[0].plain_text };
+                if (toc.length != 0) {
+                    toc[toc.length - 1].children.push(tocH3);
+                }
                 break;
             case "bulleted_list_item":
                 if (lastType != 'ul') {
@@ -110,8 +116,27 @@ export default function Blog({ post, texts }) {
             <article className={styles.post + ' ' + cstyles.section}>
                 <h1>{post.title}</h1>
                 <p><time dateTime={`${post.date} 00:00`}>{post.date}</time> by fHz</p>
-                <section>
-                    {content}
+                <section className={styles.main}>
+                    <section className={styles.toc}>
+                        <p>{texts.toc}</p>
+                        <ol>
+                        {
+                            toc.map(tocH2 => (
+                                    <li>
+                                        <a href={`#${tocH2.text}`}>{tocH2.text}</a>
+                                        <ol>
+                                            {
+                                                tocH2.children.map(tocH3 => (<li><a href={`#${tocH3.text}`}>{tocH3.text}</a></li>))
+                                            }
+                                        </ol>
+                                    </li>   
+                                ))
+                        }
+                        </ol>
+                    </section>
+                    <section>
+                        {content}
+                    </section>
                 </section>
             </article>
         </>
@@ -133,6 +158,6 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
     const post = await getPostBySlug(params.blog);
-    const texts = getLocalizedTexts();
+    const texts = getLocalizedTexts('toc');
     return { props: { post, texts } };
 }

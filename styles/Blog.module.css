@@ -2,6 +2,47 @@
 
 }
 
+.main {
+    display: block;
+}
+
+.toc {
+    border: 1px solid #1560BD;
+    background-color: #FCFCFC;
+    margin-bottom: 20px;
+    float: right;
+}
+
+@media (max-width: 500px) { 
+    .toc {
+        float: none;
+    }
+}
+
+.toc p {
+    padding-left: 20px;
+    color: grey;
+    margin-bottom: 5px;
+}
+
+.toc ol {
+    counter-reset: item;
+    padding-left: 20px;
+    padding-right: 10px;
+    margin-top: 0px;
+}
+
+.toc li {
+    display: block;
+    padding-top: 5px;
+}
+
+.toc li:before {
+    content: counters(item, ".") " ";
+    counter-increment: item;
+    color: #1560BD;
+}
+
 .post h1 {
     font-size: 32px;
 }
