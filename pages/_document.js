@@ -3,13 +3,14 @@ import Document, { Html, Head, Main, NextScript } from 'next/document'
 
 class MyDocument extends Document {
   static async getInitialProps(ctx) {
-    const initialProps = await Document.getInitialProps(ctx)
-    return { ...initialProps }
+    const initialProps = await Document.getInitialProps(ctx);
+    const locale = process.env.NEXT_LOCALE ?? 'en';
+    return { ...initialProps, locale };
   }
 
   render() {
     return (
-      <Html lang="en" prefix="og: https://ogp.me/ns#" >
+      <Html lang={this.props.locale} prefix="og: https://ogp.me/ns#" >
         <Head />
         <body>
           <Main />

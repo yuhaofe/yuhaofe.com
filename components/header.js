@@ -1,22 +1,7 @@
 import styles from '../styles/Layout.module.css'
 import Link from 'next/link'
 
-const nav = {
-    en: {
-        home: 'Home',
-        projects: 'Projects',
-        blog: 'Blog',
-        about: 'About'
-    },
-    'zh-CN': {
-        home: '主页',
-        projects: '项目',
-        blog: '博客',
-        about: '关于'
-    }
-}
-
-export default function Header({ locale }) {
+export default function Header({ texts }) {
     return (
         <header className={styles.header}>
             <Link href="/">
@@ -30,10 +15,10 @@ export default function Header({ locale }) {
             </Link>
             <ul className={styles.nav}>
                 <li><small><a href="/">EN</a> / <a href="/zh-CN">中</a></small></li>
-                <li><Link href="/">{nav[locale].home}</Link></li>
-                <li><Link href="/projects">{nav[locale].projects}</Link></li>
-                <li><Link href="/blog">{nav[locale].blog}</Link></li>
-                <li><Link href="/about">{nav[locale].about}</Link></li>
+                <li><Link href="/">{texts.home}</Link></li>
+                <li><Link href="/projects">{texts.projects}</Link></li>
+                <li><Link href="/blog">{texts.blog}</Link></li>
+                <li><Link href="/about">{texts.about}</Link></li>
             </ul>
         </header>
     )

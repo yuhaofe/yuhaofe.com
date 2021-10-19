@@ -120,13 +120,27 @@
 
 .blogList li {
     margin: 10px 0px;
+    display: flex;
+    align-items: flex-start;
 }
 
-.blogList li span{
+.blogList li span {
     color: grey;
 }
 
-.blogList li a{
-    font-weight: bold;
+.blogList li div {
     margin-left: 10px;
+}
+
+.blogList li p {
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
+.blogList li a:first-of-type{
+    font-weight: bold;
+}
+
+.blogList li a:last-of-type{
+    text-decoration: underline;
 }
