@@ -8,6 +8,8 @@ export default function Layout({ children, texts }) {
   return (
     <>
       <Head>
+        <meta charset="utf-8" /> 
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>{texts.title}</title>
         <meta name="description" content={texts.description} />
         <meta property="og:title" content={texts.title} key="title" />
