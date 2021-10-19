@@ -13,8 +13,8 @@ export default function Header({ texts }) {
                     </svg>
                 </a>
             </Link>
+            <span className={styles.lang}><a href="/">EN</a> / <a href="/zh-CN">中</a></span>
             <ul className={styles.nav}>
-                <li><small><a href="/">EN</a> / <a href="/zh-CN">中</a></small></li>
                 <li><Link href="/">{texts.home}</Link></li>
                 <li><Link href="/projects">{texts.projects}</Link></li>
                 <li><Link href="/blog">{texts.blog}</Link></li>
