@@ -12,7 +12,7 @@ export default function Projects({ projectInfos, texts }) {
             <Head >
                 <title>{`${texts.projects} - fHz`}</title>
                 <meta property="og:title" content={`${texts.projects} - fHz`} key="title" />
-                <meta property="og:url" content="https://flyhaozi.com/projects" key="url" />
+                <meta property="og:url" content="https://yuhaofe.com/projects" key="url" />
             </Head>
             <h2>{texts.projects}</h2>
             <div className={cstyles.cardContainer}>

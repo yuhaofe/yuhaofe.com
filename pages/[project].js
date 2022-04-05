@@ -20,7 +20,7 @@ export default function Project({ source, frontMatter, texts }) {
                 <meta name="description" content={frontMatter.description} />
                 <meta property="og:title" content={frontMatter.title + " - fHz"} key="title" />
                 <meta property="og:description" content={frontMatter.description} key="description" />
-                <meta property="og:url" content={"https://flyhaozi.com/" + frontMatter.path} key="url" />
+                <meta property="og:url" content={"https://yuhaofe.com/" + frontMatter.path} key="url" />
             </Head>
             <div className={cstyles.top}>
                 <h1>{frontMatter.title}</h1>

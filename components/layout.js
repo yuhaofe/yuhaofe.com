@@ -15,8 +15,8 @@ export default function Layout({ children, texts }) {
         <meta property="og:title" content={texts.title} key="title" />
         <meta property="og:description" content={texts.description} key="description" />
         <meta property="og:type" content="website" key="type" />
-        <meta property="og:url" content="https://flyhaozi.com/" key="url" />
-        <meta property="og:image" content="https://flyhaozi.com/banner.jpg" key="image" />
+        <meta property="og:url" content="https://yuhaofe.com/" key="url" />
+        <meta property="og:image" content="https://yuhaofe.com/banner.jpg" key="image" />
         <meta name="twitter:card" content="summary_large_image" />
         <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />

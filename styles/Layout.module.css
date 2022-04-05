@@ -23,6 +23,11 @@
     border-bottom: none;
 }
 
+.header > .logo {
+    font-size:32px;
+    font-weight:bold;
+}
+
 .lang {
     flex: 1 1 auto;
     text-align: right;

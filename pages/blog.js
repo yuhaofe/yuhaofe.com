@@ -10,7 +10,7 @@ export default function Blog({ posts, texts }) {
             <Head >
                 <title>{`${texts.blog} - fHz`}</title>
                 <meta property="og:title" content={`${texts.blog} - fHz`} key="title" />
-                <meta property="og:url" content="https://flyhaozi.com/blog" key="url" />
+                <meta property="og:url" content="https://yuhaofe.com/blog" key="url" />
             </Head>
             <h2>{texts.blog}</h2>
             <ul className={cstyles.blogList}>

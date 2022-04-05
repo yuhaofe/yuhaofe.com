@@ -8,7 +8,7 @@ export default function About({ texts }) {
             <Head >
                 <title>{`${texts.about} - fHz`}</title>
                 <meta property="og:title" content={`${texts.about} - fHz`} key="title" />
-                <meta property="og:url" content="https://flyhaozi.com/about" key="url" />
+                <meta property="og:url" content="https://yuhaofe.com/about" key="url" />
             </Head>
             <article className={cstyles.section} dangerouslySetInnerHTML={{__html: texts.aboutMe}}>
             </article>

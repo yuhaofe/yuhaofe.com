@@ -111,7 +111,7 @@ export default function Blog({ post, texts }) {
                 <meta name="description" content={post.summary} />
                 <meta property="og:title" content={post.title  + " - fHz"} key="title" />
                 <meta property="og:description" content={post.summary} key="description" />
-                <meta property="og:url" content={"https://flyhaozi.com/" + post.slug} key="url" />
+                <meta property="og:url" content={"https://yuhaofe.com/" + post.slug} key="url" />
             </Head>
             <article className={styles.post + ' ' + cstyles.section}>
                 <h1>{post.title}</h1>
