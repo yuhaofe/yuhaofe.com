@@ -10,8 +10,8 @@ export default function Projects({ projectInfos, texts }) {
     return (
         <section className={cstyles.section}>
             <Head >
-                <title>{`${texts.projects} - fHz`}</title>
-                <meta property="og:title" content={`${texts.projects} - fHz`} key="title" />
+                <title>{`${texts.projects} - YuhaoFe`}</title>
+                <meta property="og:title" content={`${texts.projects} - YuhaoFe`} key="title" />
                 <meta property="og:url" content="https://yuhaofe.com/projects" key="url" />
             </Head>
             <h2>{texts.projects}</h2>

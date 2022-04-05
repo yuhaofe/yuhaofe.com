@@ -16,9 +16,9 @@ export default function Project({ source, frontMatter, texts }) {
     return (
         <>
             <Head >
-                <title>{frontMatter.title + " - fHz"}</title>
+                <title>{frontMatter.title + " - YuhaoFe"}</title>
                 <meta name="description" content={frontMatter.description} />
-                <meta property="og:title" content={frontMatter.title + " - fHz"} key="title" />
+                <meta property="og:title" content={frontMatter.title + " - YuhaoFe"} key="title" />
                 <meta property="og:description" content={frontMatter.description} key="description" />
                 <meta property="og:url" content={"https://yuhaofe.com/" + frontMatter.path} key="url" />
             </Head>

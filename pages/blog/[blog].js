@@ -107,15 +107,15 @@ export default function Blog({ post, texts }) {
     return (
         <>
             <Head >
-                <title>{post.title + " - fHz"}</title>
+                <title>{post.title + " - YuhaoFe"}</title>
                 <meta name="description" content={post.summary} />
-                <meta property="og:title" content={post.title  + " - fHz"} key="title" />
+                <meta property="og:title" content={post.title  + " - YuhaoFe"} key="title" />
                 <meta property="og:description" content={post.summary} key="description" />
                 <meta property="og:url" content={"https://yuhaofe.com/" + post.slug} key="url" />
             </Head>
             <article className={styles.post + ' ' + cstyles.section}>
                 <h1>{post.title}</h1>
-                <p><time dateTime={`${post.date} 00:00`}>{post.date}</time> by fHz</p>
+                <p><time dateTime={`${post.date} 00:00`}>{post.date}</time> by YuhaoFe</p>
                 <section className={styles.main}>
                     <section className={styles.toc}>
                         <p>{texts.toc}</p>
