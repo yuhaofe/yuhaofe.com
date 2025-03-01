@@ -18,8 +18,9 @@ export default function Projects({ projectInfos, texts }) {
             <div className={cstyles.cardContainer}>
             {
                 projectInfos.map(info => {
-                    return <Link href={'/' + info.path} key={info.path}>
-                        <a className={cstyles.projectCard}>
+                    return (
+                        <Link href={'/' + info.path} key={info.path} className={cstyles.projectCard}>
+
                             <div className={cstyles.projectBasic}>
                                 <div>
                                     <p className={cstyles.projectType}>{info.type}</p>
@@ -28,13 +29,14 @@ export default function Projects({ projectInfos, texts }) {
                                 <img className={cstyles.projectImg}></img>
                             </div>
                             <p className={cstyles.projectDesc}>{info.description}</p>
-                        </a>
-                    </Link>
+
+                        </Link>
+                    );
                 })
             }
             </div>
         </section>
-    )
+    );
 }
 
 export async function getStaticProps(context) {

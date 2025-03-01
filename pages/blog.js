@@ -19,16 +19,16 @@ export default function Blog({ posts, texts }) {
                         <li>
                             <span>{entry.date}</span>
                             <div>
-                                <Link href={`/blog/${entry.slug}`}><a >{entry.title}</a></Link>
+                                <Link href={`/blog/${entry.slug}`}>{entry.title}</Link>
                                 <p>{entry.summary}</p>
-                                <Link href={`/blog/${entry.slug}`}><a>{texts.viewMore}</a></Link>
+                                <Link href={`/blog/${entry.slug}`}>{texts.viewMore}</Link>
                             </div>
                         </li>
                     )
                 }
             </ul>
         </section>
-    )
+    );
 }
 
 export async function getStaticProps() {

@@ -39,23 +39,25 @@ export default function Home({ projectInfos, posts, texts }) {
         <div className={cstyles.cardContainer}>
         {
             projectInfos.map(info => {
-                return <Link href={'/' + info.path} key={info.path}>
-                    <a className={cstyles.projectCard}>
-                        <div className={cstyles.projectBasic}>
-                            <div>
-                                <p className={cstyles.projectType}>{info.type}</p>
-                                <p className={cstyles.projectName}>{info.title}</p>
-                            </div>
-                            <img className={cstyles.projectImg}></img>
+                return (
+                  <Link href={'/' + info.path} key={info.path} className={cstyles.projectCard}>
+
+                    <div className={cstyles.projectBasic}>
+                        <div>
+                            <p className={cstyles.projectType}>{info.type}</p>
+                            <p className={cstyles.projectName}>{info.title}</p>
                         </div>
-                        <p className={cstyles.projectDesc}>{info.description}</p>
-                    </a>
-                </Link>
+                        <img className={cstyles.projectImg}></img>
+                    </div>
+                    <p className={cstyles.projectDesc}>{info.description}</p>
+
+                  </Link>
+                );
             })
         }
         </div>
-        <Link href="/projects">
-          <a  className={styles.viewAll}>{texts.viewAllProjects}</a>
+        <Link href="/projects" className={styles.viewAll}>
+          {texts.viewAllProjects}
         </Link>
       </section>
       <section className={cstyles.section}>
@@ -66,20 +68,20 @@ export default function Home({ projectInfos, posts, texts }) {
                 <li>
                   <span>{entry.date}</span>
                   <div>
-                    <Link href={`/blog/${entry.slug}`}><a >{entry.title}</a></Link>
+                    <Link href={`/blog/${entry.slug}`}>{entry.title}</Link>
                     <p>{entry.summary}</p>
-                    <Link href={`/blog/${entry.slug}`}><a>{texts.viewMore}</a></Link>
+                    <Link href={`/blog/${entry.slug}`}>{texts.viewMore}</Link>
                   </div>
                 </li>
             )
         }
         </ul>
-        <Link href="/blog">
-          <a className={styles.viewAll}>{texts.viewAllPosts}</a>
+        <Link href="/blog" className={styles.viewAll}>
+          {texts.viewAllPosts}
         </Link>
       </section>
     </>
-  )
+  );
 }
 
 export async function getStaticProps(context) {
