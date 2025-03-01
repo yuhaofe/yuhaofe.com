@@ -1,0 +1,25 @@
+services:
+  directus:
+    image: directus/directus:11.5.1
+    ports:
+      - 8055:8055
+    volumes:
+      - "${DATA_PATH}/database:/directus/database"
+      - "${DATA_PATH}/uploads:/directus/uploads"
+      - "${DATA_PATH}/extensions:/directus/extensions"
+    environment:
+      SECRET: ${SECRET}
+      ADMIN_EMAIL: ${ADMIN_EMAIL}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD}
+      DB_CLIENT: "sqlite3"
+      DB_FILENAME: "/directus/database/data.db"
+      WEBSOCKETS_ENABLED: "true"
+      STORAGE_LOCATIONS: "r2"
+      STORAGE_R2_DRIVER: "s3"
+      STORAGE_R2_KEY: ${STORAGE_R2_KEY}
+      STORAGE_R2_SECRET: ${STORAGE_R2_SECRET} 
+      STORAGE_R2_BUCKET: "directus-cms"
+      STORAGE_R2_REGION: "auto"
+      STORAGE_R2_ENDPOINT: ${STORAGE_R2_ENDPOINT}
+      CONTENT_SECURITY_POLICY_DIRECTIVES__IMG_SRC: "* data: blob: 'unsafe-inline'"
+
