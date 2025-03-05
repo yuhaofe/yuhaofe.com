@@ -12,6 +12,7 @@
     "build-all": "npm run build && npm run build:zh-CN"
   },
   "dependencies": {
+    "@directus/sdk": "^19.0.1",
     "@notionhq/client": "^0.4.3",
     "gray-matter": "^4.0.3",
     "next": "15.2.0",
