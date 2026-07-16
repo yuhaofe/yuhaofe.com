@@ -1,0 +1,26 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand: #1560bd;
+  --color-brand-teal: #0cc5c9;
+  --font-display: var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif;
+  --animate-wave-drift: wave-drift 14s linear infinite;
+  --animate-wave-drift-slow: wave-drift 22s linear infinite reverse;
+}
+
+@keyframes wave-drift {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+body {
+  @apply bg-white text-slate-800 antialiased;
+}
+
+::selection {
+  @apply bg-brand-teal/20;
+}

@@ -1,0 +1,10 @@
+import { getTexts } from '@/lib/i18n'
+
+export default function NotFound() {
+  const texts = getTexts()
+  return (
+    <section className="py-24 text-center">
+      <h1 className="font-display text-2xl font-bold text-slate-900">{texts.error404}</h1>
+    </section>
+  )
+}
