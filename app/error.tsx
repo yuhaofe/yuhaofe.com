@@ -23,8 +23,8 @@ export default function Error({
   )
 
   return (
-    <section className="py-24 text-center">
-      <h1 className="font-display text-2xl font-bold text-slate-900">{texts.error500}</h1>
+    <section className="container-site py-24 text-center">
+      <h1 className="font-display text-2xl font-bold text-slate-900 dark:text-slate-100">{texts.error500}</h1>
       <button
         onClick={() => reset()}
         className="mt-6 rounded-lg bg-gradient-to-r from-brand to-brand-teal px-4 py-2 text-sm font-medium text-white transition-opacity hover:opacity-90"

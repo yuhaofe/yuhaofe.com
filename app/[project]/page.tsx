@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation'
 import { MDXRemote } from 'next-mdx-remote/rsc'
 import IdleDetectionExample from '@/components/idle-detection-example'
 import StoreLinks from '@/components/store-links'
+import WaveField from '@/components/wave-field'
 import { getProjectByPath, getAllProjects } from '@/lib/projects'
 
 const mdxComponents = { IdleDetectionExample }
@@ -43,12 +44,26 @@ export default async function Project({ params }: { params: Promise<Params> }) {
 
   return (
     <>
-      <div className="mt-12 rounded-2xl bg-gradient-to-br from-brand to-brand-teal p-8 text-white sm:p-10">
-        <h1 className="font-display text-3xl font-bold sm:text-4xl">{info.title}</h1>
-        <p className="mt-3 max-w-xl leading-7 text-white/85">{info.description}</p>
-        <StoreLinks links={info.links} />
-      </div>
-      <section className="mt-10 leading-7 [&_h2]:font-display [&_h2]:mt-10 [&_h2]:mb-4 [&_h2]:text-2xl [&_h2]:font-bold [&_h2]:text-slate-900 [&_img]:my-2 [&_p]:my-4">
+      <header className="relative overflow-hidden bg-gradient-to-br from-brand to-brand-teal text-white">
+        <WaveField
+          className="absolute inset-0 h-full w-full opacity-40"
+          lines={8}
+          interactive={false}
+          strokeOnly
+          amplitude={2}
+          palette={{ bg: 'transparent', from: [255, 255, 255], to: [255, 255, 255] }}
+        />
+        <span className="pointer-events-none absolute left-4 top-4 h-4 w-4 border-l border-t border-white/40" aria-hidden />
+        <span className="pointer-events-none absolute right-4 top-4 h-4 w-4 border-r border-t border-white/40" aria-hidden />
+        <span className="pointer-events-none absolute bottom-4 left-4 h-4 w-4 border-b border-l border-white/40" aria-hidden />
+        <span className="pointer-events-none absolute bottom-4 right-4 h-4 w-4 border-b border-r border-white/40" aria-hidden />
+        <div className="container-site relative py-16 sm:py-24">
+          <h1 className="font-display text-3xl font-bold sm:text-5xl">{info.title}</h1>
+          <p className="mt-4 max-w-xl leading-7 text-white/85">{info.description}</p>
+          <StoreLinks links={info.links} />
+        </div>
+      </header>
+      <section className="container-site py-12 leading-7 [&_h2]:font-display [&_h2]:mt-10 [&_h2]:mb-4 [&_h2]:text-2xl [&_h2]:font-bold [&_h2]:text-slate-900 dark:[&_h2]:text-slate-100 [&_img]:my-2 [&_img]:mr-2 [&_img]:inline-block [&_p]:my-4">
         <MDXRemote source={content} components={mdxComponents} options={{ scope: info }} />
       </section>
     </>

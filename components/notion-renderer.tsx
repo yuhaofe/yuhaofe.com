@@ -12,13 +12,13 @@ function renderRichText(richText: RichTextItemResponse[]) {
     const a = t.annotations
     if (a.code) {
       node = (
-        <code className="rounded bg-slate-100 px-1.5 py-0.5 font-mono text-[0.85em] text-brand">
+        <code className="rounded bg-slate-200/60 px-1.5 py-0.5 font-mono text-[0.85em] text-brand dark:bg-slate-800 dark:text-accent">
           {node}
         </code>
       )
     }
     if (a.bold) {
-      node = <strong className="font-semibold text-slate-900">{node}</strong>
+      node = <strong className="font-semibold text-slate-900 dark:text-slate-100">{node}</strong>
     }
     if (a.italic) {
       node = <em>{node}</em>
@@ -35,7 +35,7 @@ function renderRichText(richText: RichTextItemResponse[]) {
           href={t.href}
           target="_blank"
           rel="noreferrer"
-          className="text-brand underline decoration-brand/30 transition-colors hover:decoration-brand"
+          className="text-brand underline decoration-brand/30 transition-colors hover:decoration-brand dark:text-accent dark:decoration-accent/30 dark:hover:decoration-accent"
         >
           {node}
         </a>
@@ -109,7 +109,7 @@ export default function NotionRenderer({ blocks }: { blocks: BlockObjectResponse
           <h1
             key={block.id}
             id={text}
-            className="font-display mt-10 mb-4 scroll-mt-20 text-3xl font-bold text-slate-900"
+            className="font-display mt-10 mb-4 scroll-mt-20 text-3xl font-bold text-slate-900 dark:text-slate-100"
           >
             <a href={`#${text}`}>{renderRichText(block.heading_1.rich_text)}</a>
           </h1>
@@ -122,7 +122,7 @@ export default function NotionRenderer({ blocks }: { blocks: BlockObjectResponse
           <h2
             key={block.id}
             id={text}
-            className="font-display mt-10 mb-4 scroll-mt-20 text-2xl font-bold text-slate-900"
+            className="font-display mt-10 mb-4 scroll-mt-20 text-2xl font-bold text-slate-900 dark:text-slate-100"
           >
             <a href={`#${text}`}>{renderRichText(block.heading_2.rich_text)}</a>
           </h2>
@@ -135,7 +135,7 @@ export default function NotionRenderer({ blocks }: { blocks: BlockObjectResponse
           <h3
             key={block.id}
             id={text}
-            className="font-display mt-8 mb-3 scroll-mt-20 text-xl font-semibold text-slate-900"
+            className="font-display mt-8 mb-3 scroll-mt-20 text-xl font-semibold text-slate-900 dark:text-slate-100"
           >
             <a href={`#${text}`}>{renderRichText(block.heading_3.rich_text)}</a>
           </h3>
@@ -146,7 +146,7 @@ export default function NotionRenderer({ blocks }: { blocks: BlockObjectResponse
         nodes.push(
           <blockquote
             key={block.id}
-            className="my-4 border-l-4 border-brand-teal/50 pl-4 italic text-slate-600"
+            className="my-4 border-l-4 border-brand-teal/50 pl-4 italic text-slate-500 dark:text-slate-400"
           >
             {renderRichText(block.quote.rich_text)}
           </blockquote>
@@ -157,7 +157,7 @@ export default function NotionRenderer({ blocks }: { blocks: BlockObjectResponse
           <pre
             key={block.id}
             data-language={block.code.language}
-            className="my-4 overflow-x-auto rounded-lg bg-slate-900 p-4 text-sm leading-6 text-slate-100"
+            className="my-4 overflow-x-auto rounded-lg bg-slate-900 p-4 text-sm leading-6 text-slate-100 dark:bg-black/40 dark:ring-1 dark:ring-slate-800"
           >
             <code>{plainText(block.code.rich_text)}</code>
           </pre>
@@ -177,7 +177,7 @@ export default function NotionRenderer({ blocks }: { blocks: BlockObjectResponse
         break
       }
       case 'divider':
-        nodes.push(<hr key={block.id} className="my-8 border-slate-200" />)
+        nodes.push(<hr key={block.id} className="my-8 border-slate-200 dark:border-slate-800" />)
         break
       default:
         break
