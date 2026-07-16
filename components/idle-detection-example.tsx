@@ -59,7 +59,7 @@ export default function IdleDetectionExample() {
   }
 
   return (
-    <div className="my-4 rounded-lg border border-slate-300 p-4">
+    <div className="my-4 rounded-lg border border-slate-200 p-4 dark:border-slate-700">
       <p>
         Idle Detection API support&nbsp;
         {supported ? (

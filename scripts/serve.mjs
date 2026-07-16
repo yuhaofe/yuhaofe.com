@@ -39,7 +39,8 @@ async function resolveFile(urlPath) {
 }
 
 createServer(async (req, res) => {
-  const urlPath = (req.url ?? '/').split('?')[0]
+  // Normalize trailing slashes so /blog/post/ resolves like /blog/post.
+  const urlPath = (req.url ?? '/').split('?')[0].replace(/\/+$/, '') || '/'
   const found = await resolveFile(urlPath)
   const file = found ?? (await resolveFile('/404.html'))
   if (!file) {

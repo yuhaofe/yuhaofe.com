@@ -1,5 +1,7 @@
 import type { Metadata } from 'next'
+import PageHeader from '@/components/page-header'
 import ProjectCard from '@/components/project-card'
+import Reveal from '@/components/reveal'
 import { getTexts } from '@/lib/i18n'
 import { getAllProjects } from '@/lib/projects'
 
@@ -18,13 +20,19 @@ export default async function Projects() {
   const projects = await getAllProjects()
 
   return (
-    <section className="mt-12">
-      <h2 className="font-display text-2xl font-bold text-slate-900">{texts.projects}</h2>
-      <div className="mt-6 grid gap-4 sm:grid-cols-2">
-        {projects.map(info => (
-          <ProjectCard key={info.path} info={info} />
-        ))}
-      </div>
-    </section>
+    <>
+      <PageHeader label={texts.projectsSection} title={texts.projects} />
+      <section>
+        <div className="container-site py-16 sm:py-20">
+          <div className="grid gap-5 sm:grid-cols-2">
+            {projects.map((info, i) => (
+              <Reveal key={info.path} delay={i * 90}>
+                <ProjectCard info={info} />
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+    </>
   )
 }

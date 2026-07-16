@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import NotionRenderer, { extractToc } from '@/components/notion-renderer'
+import PageHeader from '@/components/page-header'
 import PostToc from '@/components/post-toc'
 import { getTexts } from '@/lib/i18n'
 import { getAllPosts, getPostBySlug } from '@/lib/notion'
@@ -41,17 +42,24 @@ export default async function BlogPost({ params }: { params: Promise<Params> }) 
   const toc = extractToc(post.blocks)
 
   return (
-    <article className="mt-12">
-      <h1 className="font-display text-3xl font-bold text-slate-900 sm:text-4xl">
-        {post.title}
-      </h1>
-      <p className="mt-3 text-sm text-slate-400">
-        <time dateTime={`${post.date} 00:00`}>{post.date}</time> by yuhaofe
-      </p>
-      <div className="mt-10 lg:flex lg:gap-10">
-        <PostToc toc={toc} title={texts.toc} />
-        <div className="min-w-0 flex-1">
-          <NotionRenderer blocks={post.blocks} />
+    <article>
+      <PageHeader
+        label={texts.blogSection}
+        title={post.title}
+        meta={
+          <p className="font-mono mt-4 flex items-center gap-2 text-xs text-slate-400 dark:text-slate-500">
+            <span className="animate-pulse-dot inline-block h-1.5 w-1.5 rounded-full bg-accent" aria-hidden />
+            <time dateTime={`${post.date} 00:00`}>{post.date}</time>
+            <span aria-hidden>·</span> by yuhaofe
+          </p>
+        }
+      />
+      <div className="container-site py-12">
+        <div className="lg:flex lg:gap-10">
+          <PostToc toc={toc} title={texts.toc} />
+          <div className="min-w-0 flex-1 lg:order-1">
+            <NotionRenderer blocks={post.blocks} />
+          </div>
         </div>
       </div>
     </article>
