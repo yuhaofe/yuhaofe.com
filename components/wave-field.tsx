@@ -44,6 +44,12 @@ export default function WaveField({
     let w = 0
     let h = 0
     let raf = 0
+    let disposed = false
+    let inView = true
+    let pageVisible = !document.hidden
+    // tuned per resize: narrow screens get a thinner, cheaper field
+    let effLines = lines
+    let effPoints = POINTS
     const resolvePalette = () =>
       palette ?? (document.documentElement.classList.contains('dark') ? DARK : LIGHT)
     let pal = resolvePalette()
@@ -55,7 +61,14 @@ export default function WaveField({
 
     const resize = () => {
       const rect = canvas.getBoundingClientRect()
-      const dpr = Math.min(window.devicePixelRatio || 1, 2)
+      if (rect.width === 0 || rect.height === 0) return
+      const narrow = rect.width < 640
+      // The silhouette fills dominate the frame cost, so keep the raster
+      // small: cap pixel ratio everywhere, and drop lines/points on small
+      // screens where the difference is imperceptible anyway.
+      const dpr = Math.min(window.devicePixelRatio || 1, narrow ? 1.25 : 1.5)
+      effLines = narrow ? Math.max(12, Math.round(lines * 0.55)) : lines
+      effPoints = narrow ? 72 : POINTS
       w = rect.width
       h = rect.height
       canvas.width = Math.round(w * dpr)
@@ -72,7 +85,7 @@ export default function WaveField({
     }
 
     const ridgePoint = (i: number, x: number, yBase: number, t: number, px: number, py: number) => {
-      const depth = i / (lines - 1)
+      const depth = i / (effLines - 1)
       const ampScale = (h / 480) * (0.35 + 0.65 * depth) * amplitude
       // two peaks per line drifting on independent phases, like pulses
       const p1 = w * (0.5 + 0.42 * Math.sin(t * 0.11 + i * 1.7))
@@ -105,11 +118,11 @@ export default function WaveField({
       const py = pointer.y * h
 
       // back to front: each line's silhouette occludes the lines behind it
-      for (let i = 0; i < lines; i++) {
-        const yBase = topPad + (i / (lines - 1)) * field
+      for (let i = 0; i < effLines; i++) {
+        const yBase = topPad + (i / (effLines - 1)) * field
         const ridge = new Path2D()
-        for (let j = 0; j <= POINTS; j++) {
-          const x = (j / POINTS) * w
+        for (let j = 0; j <= effPoints; j++) {
+          const x = (j / effPoints) * w
           const y = ridgePoint(i, x, yBase, t, px, py)
           if (j === 0) ridge.moveTo(x, y)
           else ridge.lineTo(x, y)
@@ -122,7 +135,7 @@ export default function WaveField({
           ctx.fillStyle = pal.bg
           ctx.fill(silhouette)
         }
-        ctx.strokeStyle = stroke(i / (lines - 1))
+        ctx.strokeStyle = stroke(i / (effLines - 1))
         ctx.lineWidth = 1.4
         ctx.stroke(ridge)
       }
@@ -131,6 +144,18 @@ export default function WaveField({
     const loop = (time: number) => {
       draw(time)
       raf = requestAnimationFrame(loop)
+    }
+    const start = () => {
+      if (!raf && !disposed && !reduced) raf = requestAnimationFrame(loop)
+    }
+    const stop = () => {
+      cancelAnimationFrame(raf)
+      raf = 0
+    }
+    // only burn frames while the canvas is on screen and the tab is visible
+    const syncPlayback = () => {
+      if (inView && pageVisible) start()
+      else stop()
     }
 
     const host = canvas.parentElement ?? canvas
@@ -151,6 +176,17 @@ export default function WaveField({
     const resizeObserver = new ResizeObserver(resize)
     resizeObserver.observe(canvas)
 
+    const inViewObserver = new IntersectionObserver(([entry]) => {
+      inView = entry.isIntersecting
+      syncPlayback()
+    })
+    inViewObserver.observe(canvas)
+    const onVisibility = () => {
+      pageVisible = !document.hidden
+      syncPlayback()
+    }
+    document.addEventListener('visibilitychange', onVisibility)
+
     // re-render with the new palette when the theme flips
     const themeObserver = new MutationObserver(() => {
       pal = resolvePalette()
@@ -165,16 +201,19 @@ export default function WaveField({
     if (reduced) {
       draw(0)
     } else {
-      raf = requestAnimationFrame(loop)
+      syncPlayback()
     }
 
     return () => {
-      cancelAnimationFrame(raf)
+      disposed = true
+      stop()
       if (interactive) {
         host.removeEventListener('pointermove', onPointerMove)
         host.removeEventListener('pointerleave', onPointerLeave)
       }
       resizeObserver.disconnect()
+      inViewObserver.disconnect()
+      document.removeEventListener('visibilitychange', onVisibility)
       themeObserver.disconnect()
     }
   }, [lines, interactive, strokeOnly, amplitude, palette])
