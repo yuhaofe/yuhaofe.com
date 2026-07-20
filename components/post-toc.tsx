@@ -9,7 +9,7 @@ export default function PostToc({ toc, title }: { toc: TocItem[]; title: string 
       <p className="font-mono text-[0.65rem] font-medium uppercase tracking-widest text-slate-400 dark:text-slate-500">
         {title}
       </p>
-      <ol className="mt-3 space-y-2 border-l border-slate-200 text-sm dark:border-slate-800">
+      <ol className="mt-3 space-y-2 border-l border-slate-200 text-sm dark:border-cyan-400/10">
         {toc.map(h2 => (
           <li key={h2.text}>
             <a

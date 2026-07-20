@@ -3,11 +3,11 @@ import type { PostMeta } from '@/lib/types'
 
 export default function PostList({ posts }: { posts: PostMeta[] }) {
   return (
-    <ul className="border-t border-slate-200 dark:border-slate-800">
+    <ul className="border-t border-slate-200 dark:border-cyan-400/10">
       {posts.map(post => (
         <li
           key={post.slug}
-          className="group border-b border-slate-200 transition-colors hover:bg-slate-50 dark:border-slate-800 dark:hover:bg-ink-soft"
+          className="group border-b border-slate-200 transition-colors hover:bg-slate-50 dark:border-cyan-400/10 dark:hover:bg-cyan-400/[0.03]"
         >
           <Link
             href={`/blog/${post.slug}`}

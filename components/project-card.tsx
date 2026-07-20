@@ -21,7 +21,7 @@ export default function ProjectCard({ info }: { info: ProjectInfo }) {
       ref={ref}
       onMouseMove={onMouseMove}
       href={`/${info.path}`}
-      className="spotlight group relative block h-full rounded-sm border border-slate-200 bg-white p-5 transition-all duration-300 hover:-translate-y-1 hover:border-brand/50 hover:shadow-lg hover:shadow-brand/5 dark:border-slate-800 dark:bg-ink-soft dark:hover:border-accent/50"
+      className="spotlight group relative block h-full rounded-sm border border-slate-200 bg-white p-5 transition-all duration-300 hover:-translate-y-1 hover:border-brand/50 hover:shadow-lg hover:shadow-brand/5 dark:border-cyan-400/15 dark:bg-ink-soft/80 dark:hover:border-cyan-400/45 dark:hover:shadow-[0_24px_80px_rgba(34,211,238,0.15)]"
     >
       {/* corner brackets */}
       <span className="pointer-events-none absolute -left-px -top-px h-3 w-3 border-l-2 border-t-2 border-accent opacity-0 transition-opacity duration-300 group-hover:opacity-100" aria-hidden />
