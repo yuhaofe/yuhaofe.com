@@ -22,7 +22,7 @@ export default async function Blog() {
     <>
       <PageHeader label={texts.blogSection} title={texts.blog} />
       <section>
-        <div className="container-site py-16 sm:py-20">
+        <div className="container-site animate-fade-up py-16 sm:py-20" style={{ animationDelay: '240ms' }}>
           <PostList posts={posts} />
         </div>
       </section>

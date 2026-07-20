@@ -1,7 +1,12 @@
 import type { Metadata } from 'next'
 import { IBM_Plex_Mono, Space_Grotesk } from 'next/font/google'
+import AmbientBackground from '@/components/ambient-background'
+import Cursor from '@/components/cursor'
+import Preloader from '@/components/preloader'
+import ScrollProgress from '@/components/scroll-progress'
 import SiteFooter from '@/components/site-footer'
 import SiteHeader from '@/components/site-header'
+import SmoothScroll from '@/components/smooth-scroll'
 import { getLocale, getTexts } from '@/lib/i18n'
 import './global.css'
 
@@ -15,10 +20,6 @@ const monoFont = IBM_Plex_Mono({
   weight: ['400', '500', '600'],
   variable: '--font-ibm-plex-mono',
 })
-
-// Applies the persisted/system theme before first paint to avoid a flash.
-// Must stay in sync with components/theme-toggle.tsx.
-const themeBootstrap = `(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme: dark)').matches)){document.documentElement.classList.add('dark')}}catch(e){}})()`
 
 export function generateMetadata(): Metadata {
   const texts = getTexts()
@@ -57,16 +58,21 @@ export default function RootLayout({
     <html
       lang={getLocale()}
       prefix="og: https://ogp.me/ns#"
-      className={`${displayFont.variable} ${monoFont.variable}`}
+      // The site is fixed to the dark signal-lab theme for now.
+      className={`dark ${displayFont.variable} ${monoFont.variable}`}
       suppressHydrationWarning
     >
-      <head>
-        <script dangerouslySetInnerHTML={{ __html: themeBootstrap }} />
-      </head>
       <body className="flex min-h-screen flex-col">
+        <Preloader />
+        <Cursor />
+        <SmoothScroll />
+        <AmbientBackground />
         <SiteHeader />
-        <main className="w-full flex-1">{children}</main>
-        <SiteFooter />
+        <ScrollProgress />
+        <main className="relative z-10 w-full flex-1">{children}</main>
+        <div className="relative z-10">
+          <SiteFooter />
+        </div>
       </body>
     </html>
   )

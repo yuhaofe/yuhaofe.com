@@ -18,7 +18,7 @@ export default function About() {
     <>
       <PageHeader label={texts.aboutSection} title={texts.about} />
       <section>
-        <div className="container-site py-16 sm:py-20">
+        <div className="container-site animate-fade-up py-16 sm:py-20" style={{ animationDelay: '240ms' }}>
           <div className="sm:flex sm:items-center sm:gap-14">
             <article
               className="min-w-0 flex-1 leading-7 [&_em]:not-italic [&_em]:font-semibold [&_em]:text-brand dark:[&_em]:text-accent [&_p]:mt-4 [&_p]:max-w-2xl first:[&_p]:mt-0"

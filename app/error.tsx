@@ -23,7 +23,7 @@ export default function Error({
   )
 
   return (
-    <section className="container-site py-24 text-center">
+    <section className="container-site animate-fade-up pb-24 pt-40 text-center">
       <h1 className="font-display text-2xl font-bold text-slate-900 dark:text-slate-100">{texts.error500}</h1>
       <button
         onClick={() => reset()}

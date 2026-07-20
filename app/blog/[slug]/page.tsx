@@ -54,7 +54,7 @@ export default async function BlogPost({ params }: { params: Promise<Params> }) 
           </p>
         }
       />
-      <div className="container-site py-12">
+      <div className="container-site animate-fade-up py-12" style={{ animationDelay: '240ms' }}>
         <div className="lg:flex lg:gap-10">
           <PostToc toc={toc} title={texts.toc} />
           <div className="min-w-0 flex-1 lg:order-1">
